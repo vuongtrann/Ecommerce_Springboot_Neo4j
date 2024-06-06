@@ -9,6 +9,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface CategoryRepository extends Neo4jRepository<Category, Integer> {
+public interface CategoryRepository extends Neo4jRepository<Category, Long> {
 
 }

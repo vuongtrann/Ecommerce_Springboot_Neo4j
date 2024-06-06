@@ -20,7 +20,7 @@ public class CategoryService implements ICategoryService {
     }
 
     @Override
-    public Optional<Category> getCategoryById(int id) {
+    public Optional<Category> getCategoryById(Long id) {
         return categoryRepository.findById(id);
     }
 
@@ -31,18 +31,24 @@ public class CategoryService implements ICategoryService {
 
     @Override
     public Category save(Category category) {
-        return null;
+        return categoryRepository.save( category);
     }
 
     @Override
-    public Category update(int catId, Category category) {
+    public List<Category> saveAll(List<Category> categories) {
+        return categoryRepository.saveAll(categories);
+    }
+
+
+    @Override
+    public Category update(Long catId, Category category) {
         Category updatedCategory = categoryRepository.findById(catId).orElseThrow();
         updatedCategory.setName(category.getName());
         return categoryRepository.save(updatedCategory);
     }
 
     @Override
-    public void deleteById(int id) {
+    public void deleteById(Long id) {
         Category category = categoryRepository.findById(id).orElseThrow();
         categoryRepository.delete(category);
     }

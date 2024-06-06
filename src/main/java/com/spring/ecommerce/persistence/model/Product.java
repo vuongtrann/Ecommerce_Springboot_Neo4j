@@ -1,10 +1,10 @@
 package com.spring.ecommerce.persistence.model;
 
+import com.spring.ecommerce.persistence.model.config.LongIDGenerator;
 import lombok.*;
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
-import org.springframework.data.neo4j.core.support.UUIDStringGenerator;
 
 @Node("Product")
 @Getter
@@ -15,8 +15,8 @@ import org.springframework.data.neo4j.core.support.UUIDStringGenerator;
 public class Product {
 
     @Id
-    @GeneratedValue(UUIDStringGenerator.class)
-    private Integer id;
+    @GeneratedValue(generatorClass = LongIDGenerator.class)
+    private Long id;
     private String name;
     private String imageURL;
     private String description;

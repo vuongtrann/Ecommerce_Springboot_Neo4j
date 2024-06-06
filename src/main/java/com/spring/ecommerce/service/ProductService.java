@@ -18,7 +18,7 @@ public class ProductService implements IProductService {
         return productRepository.findAll();
     }
     @Override
-    public Optional<Product> getProductById(int id) {
+    public Optional<Product> getProductById(Long id) {
         return productRepository.findById(id);
     }
 
@@ -29,11 +29,16 @@ public class ProductService implements IProductService {
 
     @Override
     public Product save(Product product) {
-        return null;
+        return  productRepository.save(product);
     }
 
     @Override
-    public Product update(int productId, Product product) {
+    public List<Product> saveAll(List<Product> products) {
+        return productRepository.saveAll(products);
+    }
+
+    @Override
+    public Product updateProduct(Long productId, Product product) {
         Product updatedProduct = productRepository.findById(productId).orElseThrow();
         updatedProduct.setName(product.getName());
         updatedProduct.setImageURL(product.getImageURL());
@@ -45,7 +50,7 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public void deleteById(int id) {
+    public void deleteProductById(Long id) {
         Product product = productRepository.findById(id).orElseThrow();
         productRepository.delete(product);
 
