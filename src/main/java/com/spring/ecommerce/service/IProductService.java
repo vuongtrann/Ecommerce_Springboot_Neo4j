@@ -8,9 +8,9 @@ import java.util.Optional;
 
 public interface IProductService {
 
-    public List<Product> findBy();
-    public Optional<Product> findById(Long id);
-    public Optional<Product> findByName(String name);
+    public List<Product> getAllProducts();
+    public Optional<Product> getProductById(int id);
+    public Optional<Product> getProductByName(String name);
     public Product save(Product product);
     public Product update(int productId,Product product);
     public void deleteById(int id);
