@@ -1,12 +1,14 @@
 package com.spring.ecommerce.service;
 
 import com.spring.ecommerce.persistence.model.Category;
-import com.spring.ecommerce.persistence.model.Product;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class CategoryService implements ICategoryService {
+
     @Override
     public List<Category> findAll() {
         return List.of();
@@ -23,12 +25,7 @@ public class CategoryService implements ICategoryService {
     }
 
     @Override
-    public Category save(Category category) {
-        return null;
-    }
-
-    @Override
-    public Product save(Product product) {
+    public Category update(int catId, Category category) {
         return null;
     }
 

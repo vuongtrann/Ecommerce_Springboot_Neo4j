@@ -1,13 +1,16 @@
 package com.spring.ecommerce.service;
 
 import com.spring.ecommerce.persistence.model.Product;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class ProductService implements IProductService {
+
     @Override
-    public List<Product> findAll() {
+    public List<Product> findBy() {
         return List.of();
     }
 
@@ -27,7 +30,7 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public Product update(Product product) {
+    public Product update(int productId, Product product) {
         return null;
     }
 
