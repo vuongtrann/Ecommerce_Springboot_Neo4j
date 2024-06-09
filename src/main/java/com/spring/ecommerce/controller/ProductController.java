@@ -18,42 +18,42 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @GetMapping("/getAllProduct")
+    @GetMapping("/products")
     public ResponseEntity<List<Product>> getAllProduct() {
         List<Product> products = productService.getAllProducts();
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
-    @GetMapping("/getProductByID/{proID}")
-    public ResponseEntity<Product> getProductByID(@PathVariable("proID") long proID) {
+    @GetMapping("/product/{productID}")
+    public ResponseEntity<Product> getProductByID(@PathVariable("productID") long proID) {
         Optional<Product> product = productService.getProductById(proID);
         return new ResponseEntity<>(product.get(), HttpStatus.OK);
     }
 
 
-    @PostMapping("/addProduct")
+    @PostMapping("/product/add")
     public ResponseEntity<Product> addProduct(@RequestBody Product product) {
         productService.save(product);
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
 
-    @PostMapping("/addAllProduct")
-    public ResponseEntity<Product> addAllProduct(@RequestBody List<Product> products) {
+    @PostMapping("/product/addList")
+    public ResponseEntity<?> addAllProduct(@RequestBody List<Product> products) {
         List<Product> productList = productService.saveAll(products);
-         return new ResponseEntity<>(products.get(0), HttpStatus.OK);
+         return new ResponseEntity<>("Them san pham thanh cong !",HttpStatus.OK);
     }
 
 
-    @PutMapping("/updateProduct/{proID}")
-    public ResponseEntity<Product> updateProduct(@PathVariable("proID") long proID, @RequestBody Product product) {
+    @PutMapping("/pruduct/{productID}/update")
+    public ResponseEntity<Product> updateProduct(@PathVariable("productID") long proID, @RequestBody Product product) {
         productService.updateProduct(proID, product);
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
 
-    @DeleteMapping("/deleteProduct/{proID}")
-    public ResponseEntity<Product> deleteProduct(@PathVariable("proID") long proID) {
+    @DeleteMapping("/product/{productID}/delete")
+    public ResponseEntity<Product> deleteProduct(@PathVariable("productID") long proID) {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

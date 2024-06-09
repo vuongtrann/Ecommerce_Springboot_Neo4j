@@ -19,44 +19,40 @@ public class CategoryController {
     private CategoryService categoryService;
 
 
-    @GetMapping("/getAllCategorys")
+    @GetMapping("/categories")
     public ResponseEntity<List<Category> > getAllCategorys() {
         List<Category> categoryList = categoryService.getAllCategories();
         return new ResponseEntity<>(categoryList, HttpStatus.OK);
     }
-
-
-
-
-    @GetMapping("/getCategoryByID/{categoryID}")
+    @GetMapping("/category/{categoryID}")
     public ResponseEntity<Category> getCategoryByID(@PathVariable("categoryID") Long categoryID) {
         Optional<Category> category= categoryService.getCategoryById( categoryID);
         return new ResponseEntity<>(category.get(), HttpStatus.OK);
     }
 
 
-    @PostMapping("/addCategory")
+    @PostMapping("/category/add")
     public ResponseEntity<Category> addCategory( @RequestBody Category category) {
         Category saveCategory = categoryService.save(category);
         return new ResponseEntity<>(saveCategory, HttpStatus.OK);
     }
 
 
-    @PostMapping("/addAllCategory")
+    @PostMapping("/category/addList")
     public ResponseEntity<List<Category>> addAllCategory(@RequestBody List<Category> category) {
         List<Category> saveCategory = categoryService.saveAll(category);
         return new ResponseEntity<>(saveCategory, HttpStatus.OK);
     }
 
 
-    @PutMapping ("/updateCategory/{categoryID}")
+    @PutMapping ("/category/{categoryId}/update")
     public ResponseEntity<Category> updateCategory(@PathVariable("categoryID") Long categoryID, @RequestBody Category category) {
         Category saveCategory= categoryService.update(categoryID, category);
         return new ResponseEntity<>(saveCategory, HttpStatus.OK);
     }
 
 
-    @DeleteMapping("/deleteCategory/{categoryID}")
+    @DeleteMapping("/category/{categoryID}/delete")
     public ResponseEntity<Category> deleteCategory(@PathVariable("categoryID") Long categoryID) {
         categoryService.deleteById(categoryID);
         return new ResponseEntity<>(HttpStatus.OK);

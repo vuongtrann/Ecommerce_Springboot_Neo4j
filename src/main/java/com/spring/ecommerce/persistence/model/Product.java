@@ -21,6 +21,6 @@ public class Product {
     private String imageURL;
     private String description;
     private Double price;
-    private Integer ratting;
+    private Double ratting;
     private String evaluatting;
 }
