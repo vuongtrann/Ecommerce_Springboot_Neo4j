@@ -9,6 +9,5 @@ import java.util.List;
 import java.util.Optional;
 @Repository
 public interface ProductRepository extends Neo4jRepository<Product, Long> {
-
-
+    Optional<Product> findByName(String name);
 }

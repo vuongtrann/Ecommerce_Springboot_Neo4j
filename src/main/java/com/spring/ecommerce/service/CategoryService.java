@@ -3,6 +3,7 @@ package com.spring.ecommerce.service;
 import com.spring.ecommerce.persistence.dao.CategoryRepository;
 import com.spring.ecommerce.persistence.dao.ProductRepository;
 import com.spring.ecommerce.persistence.model.Category;
+import com.spring.ecommerce.persistence.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,8 @@ import java.util.Optional;
 public class CategoryService implements ICategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
+    @Autowired
+    private ProductRepository productRepository;
 
     @Override
     public List<Category> getAllCategories() {
@@ -51,5 +54,16 @@ public class CategoryService implements ICategoryService {
     public void deleteById(Long id) {
         Category category = categoryRepository.findById(id).orElseThrow();
         categoryRepository.delete(category);
+    }
+
+    @Override
+    public Product addProduct(Long id, Product newProduct) {
+        Optional<Category> category = categoryRepository.findById(id);
+        if (category.isPresent()) {
+            Category category1 = category.get();
+            newProduct.setCategory(category1);
+            productRepository.save(newProduct);
+        }
+       return newProduct;
     }
 }

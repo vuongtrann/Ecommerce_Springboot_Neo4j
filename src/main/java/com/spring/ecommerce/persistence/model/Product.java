@@ -5,6 +5,7 @@ import lombok.*;
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
+import org.springframework.data.neo4j.core.schema.Relationship;
 
 @Node("Product")
 @Getter
@@ -23,4 +24,7 @@ public class Product {
     private Double price;
     private Double ratting;
     private String evaluatting;
+
+    @Relationship(type = "BELONGS_TO", direction = Relationship.Direction.OUTGOING)
+    private Category category;
 }
