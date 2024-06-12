@@ -23,4 +23,6 @@ public class Product {
     private Double price;
     private Double ratting;
     private String evaluatting;
+
+
 }
