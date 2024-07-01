@@ -43,18 +43,48 @@ public class CategoryController {
     }
 
 
-    /** Add category*/
+
+
+
+
+
+
+
+    /** work well*/
+//    /** Add category with orther category */
+//    @PostMapping("/add/{categoryID}")
+//    public RestResponse addCategory( @RequestBody Category category, @PathVariable Long categoryID) {
+//        Category saveCategory = new Category();
+//        Optional<Category> ortherCategory = categoryService.getCategoryById(categoryID);
+//        if (ortherCategory.isPresent()) {
+//            category.addHasCategory(ortherCategory.get());
+//            ortherCategory.get().addBelongCategory(category);
+//            saveCategory = categoryService.save(category);
+//        }
+//
+//        return RestResponse.builder(saveCategory).message("Success").build();
+//    }
+//
+
+
+    /** Improve*/
+    /** Add category with other category */
     @PostMapping("/add/{categoryID}")
     public RestResponse addCategory( @RequestBody Category category, @PathVariable Long categoryID) {
-
-        Optional<Category> ortherCategory = categoryService.getCategoryById(categoryID);
-        if (ortherCategory.isPresent()) {
-            category.addOrtherCategory(ortherCategory.get());
-            Category saveCategory = categoryService.save(category);
-        }
-
-        return RestResponse.builder(category).message("Success").build();
+        Category saveCategory = categoryService.saveWithOthersCate( category, categoryID);
+        return RestResponse.builder(saveCategory).message("Success").build();
     }
+
+
+
+
+
+
+
+
+
+
+
 
 
     /** Add list category */

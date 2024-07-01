@@ -13,11 +13,13 @@ public interface ICategoryService {
     public Optional<Category> getCategoryById(Long id);
     public Optional<Category> getCategoryByName(String name);
     public Category save(Category category);
+    public Category saveWithOthersCate(Category category, Long categoryID);
 
     public List<Category> saveAll(List<Category> categories);
     public Category update(Long catId ,Category category);
     public void deleteById(Long id);
     public Product addProduct(Long categoryId, Product newProduct);
+
 
 
 }

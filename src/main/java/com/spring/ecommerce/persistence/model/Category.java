@@ -1,17 +1,18 @@
 package com.spring.ecommerce.persistence.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spring.ecommerce.persistence.dao.CategoryRepository;
 import com.spring.ecommerce.persistence.model.config.LongIDGenerator;
+import com.spring.ecommerce.service.CategoryService;
+import jakarta.transaction.Transactional;
 import lombok.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
 import org.springframework.data.neo4j.core.schema.Relationship;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Node("Category")
 @Getter
@@ -30,10 +31,54 @@ public class Category {
     Set<Product> products_relationship = new HashSet<Product>();
 
 
-    @Relationship(type = "HAS_CATEGORY", direction = Relationship.Direction.OUTGOING)
-    Set<Category> category_relationship = new HashSet<Category>();
+    public Long getId() {
+        return id;
+    }
+
+    /** Improve*/
+
+    Set<Long> hasCategoryID = new HashSet<Long>();
+    Set<Long> belongToCategoryID = new HashSet<Long>();
 
 
+    public  void addHasCategoryID (Long id){
+        hasCategoryID.add(id);
+//        addHasCategory(id);
+    }
+
+    public  void addBelongToCategoryID (Long id){
+        belongToCategoryID.add(id);
+//        addBelongCategory(id);
+    }
+
+
+
+
+
+    @JsonIgnore
+    @Relationship(type = "HAS_CATEGORY", direction = Relationship.Direction.INCOMING)
+      Set<Category> hasCategory = new HashSet<Category>();
+
+    public void addHasCategory(Category category) {
+        if (hasCategory == null) {
+            hasCategory = new HashSet<>();
+        }
+        hasCategory.add(category);
+
+
+    }
+
+    @JsonIgnore
+    @Relationship(type = "BELONG_TO", direction = Relationship.Direction.INCOMING)
+    Set<Category> belongToCategory = new HashSet<Category>();
+
+    public void addBelongCategory(Category category) {
+        if (belongToCategory == null) {
+            belongToCategory = new HashSet<>();
+        }
+        belongToCategory.add(category);
+
+    }
 
 
 
@@ -51,13 +96,54 @@ public class Category {
     }
 
 
-    public void addOrtherCategory(Category category) {
-        if (category_relationship == null) {
-            category_relationship = new HashSet<>();
-        }
 
-        category_relationship.add(category);
 
-    }
+
+/**
+ * Test ok
+ */
+
+//    @Relationship(type = "HAS_CATEGORY", direction = Relationship.Direction.INCOMING)
+//    Set<Category> hasCategory = new HashSet<Category>();
+//
+//    public void addHasCategory(Category category) {
+//        if (hasCategory == null) {
+//            hasCategory = new HashSet<>();
+//        }
+//
+//        hasCategory.add(category);
+//
+//    }
+//
+//
+//    @Relationship(type = "BELONG_TO", direction = Relationship.Direction.INCOMING)
+//    Set<Category> belongToCategory = new HashSet<Category>();
+//
+//    public void addBelongCategory(Category category) {
+//        if (belongToCategory == null) {
+//            belongToCategory = new HashSet<>();
+//        }
+//
+//        belongToCategory.add(category);
+//
+//    }
+//
+//
+//
+//
+//
+//
+//
+//
+//    public void addProduct(Product product) {
+//        if (products_relationship == null) {
+//            products_relationship = new HashSet<>();
+//        }
+//
+//        products_relationship.add(product);
+//    }
+
+
+
 
 }

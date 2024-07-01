@@ -37,6 +37,23 @@ public class CategoryService implements ICategoryService {
         return categoryRepository.save( category);
     }
 
+    @Override
+    public Category saveWithOthersCate( Category category, Long categoryID) {
+        Optional<Category> otherCategory = categoryRepository.findById(categoryID);
+        if (otherCategory.isPresent()) {
+
+            category.addBelongToCategoryID(categoryID);
+            Category savedCategory = otherCategory.get();
+            category.addBelongCategory(otherCategory.get());
+            category= categoryRepository.save(category);
+
+            savedCategory.addHasCategoryID(category.getId());
+            otherCategory.get().addHasCategory(category);
+            categoryRepository.save(savedCategory);
+
+        }
+        return category;
+    }
 
 
     @Override
@@ -69,4 +86,8 @@ public class CategoryService implements ICategoryService {
         }
        return newProduct;
     }
+
+
+
+
 }
