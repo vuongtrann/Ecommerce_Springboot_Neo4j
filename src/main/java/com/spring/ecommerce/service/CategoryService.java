@@ -37,6 +37,8 @@ public class CategoryService implements ICategoryService {
         return categoryRepository.save( category);
     }
 
+
+
     @Override
     public List<Category> saveAll(List<Category> categories) {
         return categoryRepository.saveAll(categories);
@@ -47,6 +49,7 @@ public class CategoryService implements ICategoryService {
     public Category update(Long catId, Category category) {
         Category updatedCategory = categoryRepository.findById(catId).orElseThrow();
         updatedCategory.setName(category.getName());
+//        updatedCategory.setProduct(category.getProduct());
         return categoryRepository.save(updatedCategory);
     }
 

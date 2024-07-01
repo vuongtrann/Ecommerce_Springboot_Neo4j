@@ -7,6 +7,9 @@ import org.springframework.data.neo4j.core.schema.Id;
 import org.springframework.data.neo4j.core.schema.Node;
 import org.springframework.data.neo4j.core.schema.Relationship;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Node("Product")
 @Getter
 @Setter
@@ -27,4 +30,17 @@ public class Product {
 
     @Relationship(type = "BELONGS_TO", direction = Relationship.Direction.OUTGOING)
     private Category category;
+
+//    @Relationship(type = "BELONGS_TO", direction = Relationship.Direction.OUTGOING)
+//    private Set <Category> CategoriesRelationship;
+//
+//    public void addCategory(Category category) {
+//        if (CategoriesRelationship == null){
+//            CategoriesRelationship = new HashSet<>();
+//        }
+//
+//        CategoriesRelationship.add(category);
+//    }
+
+
 }
