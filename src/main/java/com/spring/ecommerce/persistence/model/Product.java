@@ -31,16 +31,16 @@ public class Product {
     @Relationship(type = "BELONGS_TO", direction = Relationship.Direction.OUTGOING)
     private Category category;
 
-//    @Relationship(type = "BELONGS_TO", direction = Relationship.Direction.OUTGOING)
-//    private Set <Category> CategoriesRelationship;
-//
-//    public void addCategory(Category category) {
-//        if (CategoriesRelationship == null){
-//            CategoriesRelationship = new HashSet<>();
-//        }
-//
-//        CategoriesRelationship.add(category);
-//    }
+    @Relationship(type = "BELONGS_TO", direction = Relationship.Direction.OUTGOING)
+    private Set <Category> CategoriesRelationship;
+
+    public void addCategory(Category category) {
+        if (CategoriesRelationship == null){
+            CategoriesRelationship = new HashSet<>();
+        }
+
+        CategoriesRelationship.add(category);
+    }
 
 
 }
