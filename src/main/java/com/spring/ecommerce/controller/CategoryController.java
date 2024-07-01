@@ -34,12 +34,6 @@ public class CategoryController {
         return RestResponse.builder(category.get()).message("Success").build();
     }
 
-    /** Add product by category ID*/
-    @PostMapping("/{categoryId}/product")
-    public RestResponse categoryAddProduct(@PathVariable("categoryId") Long categoryID, @RequestBody Product product) {
-        categoryService.addProduct(categoryID,product);
-        return RestResponse.builder(categoryID).message("Success").build();
-    }
 
     /** Add category*/
     @PostMapping("/add")
@@ -47,6 +41,21 @@ public class CategoryController {
         Category saveCategory = categoryService.save(category);
         return RestResponse.builder(saveCategory).message("Success").build();
     }
+
+
+    /** Add category*/
+    @PostMapping("/add/{categoryID}")
+    public RestResponse addCategory( @RequestBody Category category, @PathVariable Long categoryID) {
+
+        Optional<Category> ortherCategory = categoryService.getCategoryById(categoryID);
+        if (ortherCategory.isPresent()) {
+            category.addOrtherCategory(ortherCategory.get());
+            Category saveCategory = categoryService.save(category);
+        }
+
+        return RestResponse.builder(category).message("Success").build();
+    }
+
 
     /** Add list category */
     @PostMapping("/addList")
@@ -69,6 +78,14 @@ public class CategoryController {
         return RestResponse.builder(categoryID).message("Success").build();
     }
 
+
+
+    /** Add product by category ID*/
+    @PostMapping("/{categoryId}/product")
+    public RestResponse categoryAddProduct(@PathVariable("categoryId") Long categoryID, @RequestBody Product product) {
+        categoryService.addProduct(categoryID,product);
+        return RestResponse.builder(categoryID).message("Success").build();
+    }
 
 
 //    @PostMapping("/{categoryId}/product")

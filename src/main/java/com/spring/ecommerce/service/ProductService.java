@@ -71,12 +71,12 @@ public class ProductService implements IProductService {
     }
     @Override
     public Category addCategory(Long productId, Category newCategory) {
-        Optional<Product> optionalProduct = productRepository.findById(productId);
-        if(optionalProduct.isPresent()){
-            Product product = optionalProduct.get();
-            newCategory.setProduct(product);
-            categoryRepository.save(newCategory);
-        }
+//        Optional<Product> optionalProduct = productRepository.findById(productId);
+//        if(optionalProduct.isPresent()){
+//            Product product = optionalProduct.get();
+//            newCategory.setProduct(product);
+//            categoryRepository.save(newCategory);
+//        }
         return newCategory;
     }
 

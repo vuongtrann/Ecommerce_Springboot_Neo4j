@@ -9,7 +9,9 @@ import org.springframework.data.neo4j.core.schema.Node;
 import org.springframework.data.neo4j.core.schema.Relationship;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Node("Category")
 @Getter
@@ -20,10 +22,42 @@ import java.util.List;
 public class Category {
 
     @Id
-    @GeneratedValue( generatorClass = LongIDGenerator.class)
+    @GeneratedValue(generatorClass = LongIDGenerator.class)
     private Long id;
     private String name;
 
-   @Relationship(type = "HAS_PRODUCT", direction = Relationship.Direction.OUTGOING)
-   private Product product;
+    @Relationship(type = "HAS_PRODUCT", direction = Relationship.Direction.OUTGOING)
+    Set<Product> products_relationship = new HashSet<Product>();
+
+
+    @Relationship(type = "HAS_CATEGORY", direction = Relationship.Direction.OUTGOING)
+    Set<Category> category_relationship = new HashSet<Category>();
+
+
+
+
+
+
+
+
+
+
+    public void addProduct(Product product) {
+        if (products_relationship == null) {
+            products_relationship = new HashSet<>();
+        }
+
+        products_relationship.add(product);
+    }
+
+
+    public void addOrtherCategory(Category category) {
+        if (category_relationship == null) {
+            category_relationship = new HashSet<>();
+        }
+
+        category_relationship.add(category);
+
+    }
+
 }
