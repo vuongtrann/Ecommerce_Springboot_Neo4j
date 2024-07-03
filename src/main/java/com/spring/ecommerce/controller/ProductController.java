@@ -1,6 +1,5 @@
 package com.spring.ecommerce.controller;
 
-import com.spring.ecommerce.persistence.dao.ProductRepository;
 import com.spring.ecommerce.persistence.model.Category;
 import com.spring.ecommerce.persistence.model.Product;
 import com.spring.ecommerce.service.ProductService;
@@ -70,7 +69,7 @@ public class ProductController {
     
     /** Update category by product ID*/
     @PutMapping("{productId}/category/{categoryId}")
-    public RestResponse updateCategory(@PathVariable("productId") long proID, @PathVariable Long categoryId) {
+    public RestResponse updateCategoryOfProduct(@PathVariable("productId") long proID, @PathVariable Long categoryId) {
         productService.updateCategoryOfProduct(proID, categoryId);
         Optional<Product> result = productService.getProductById(proID);
         return RestResponse.builder(result).message("Success").build();
