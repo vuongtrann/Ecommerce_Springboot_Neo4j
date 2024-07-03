@@ -41,22 +41,31 @@ public class Category {
     Set<Long> belongToCategoryID = new HashSet<Long>();
 
 
-    public  void addHasCategoryID (Long id){
-        hasCategoryID.add(id);
-//        addHasCategory(id);
+
+    public void addHasCategoryID(Category category) {
+        hasCategoryID.add(category.getId());
+        addHasCategory(category);
     }
 
-    public  void addBelongToCategoryID (Long id){
-        belongToCategoryID.add(id);
-//        addBelongCategory(id);
+
+    public void deleteHasCategoryID(Category category) {
+        hasCategoryID.remove(category.getId());
+        hasCategory.remove(category);
     }
 
+
+
+
+    public void addBelongToCategoryID(Category savedCategory) {
+        belongToCategoryID.add(savedCategory.getId());
+        addBelongCategory(savedCategory);
+    }
 
 
 
 
     @JsonIgnore
-    @Relationship(type = "HAS_CATEGORY", direction = Relationship.Direction.INCOMING)
+    @Relationship(type = "HAS_CATEGORY", direction = Relationship.Direction.OUTGOING)
       Set<Category> hasCategory = new HashSet<Category>();
 
     public void addHasCategory(Category category) {
@@ -69,7 +78,7 @@ public class Category {
     }
 
     @JsonIgnore
-    @Relationship(type = "BELONG_TO", direction = Relationship.Direction.INCOMING)
+    @Relationship(type = "BELONG_TO", direction = Relationship.Direction.OUTGOING)
     Set<Category> belongToCategory = new HashSet<Category>();
 
     public void addBelongCategory(Category category) {
@@ -87,6 +96,7 @@ public class Category {
 
 
 
+
     public void addProduct(Product product) {
         if (products_relationship == null) {
             products_relationship = new HashSet<>();
@@ -94,8 +104,6 @@ public class Category {
 
         products_relationship.add(product);
     }
-
-
 
 
 

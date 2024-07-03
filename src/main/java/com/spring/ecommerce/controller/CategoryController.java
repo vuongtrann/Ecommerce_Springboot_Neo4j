@@ -102,7 +102,7 @@ public class CategoryController {
     }
 
     /**Delete category*/
-    @DeleteMapping("/category/{categoryID}/delete")
+    @DeleteMapping("/{categoryID}/delete")
     public RestResponse deleteCategory(@PathVariable("categoryID") Long categoryID) {
         categoryService.deleteById(categoryID);
         return RestResponse.builder(categoryID).message("Success").build();
