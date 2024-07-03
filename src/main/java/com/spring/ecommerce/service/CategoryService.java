@@ -38,6 +38,20 @@ public class CategoryService implements ICategoryService {
     }
 
     @Override
+    public Category saveWithOthersCate( Category category, Long categoryID) {
+        Optional<Category> otherCategory = categoryRepository.findById(categoryID);
+        if (otherCategory.isPresent()) {
+            Category savedCategory = otherCategory.get();
+            category.addBelongToCategoryID(savedCategory);
+            category= categoryRepository.save(category);
+            savedCategory.addHasCategoryID(category);
+            categoryRepository.save(savedCategory);
+        }
+        return category;
+    }
+
+
+    @Override
     public List<Category> saveAll(List<Category> categories) {
         return categoryRepository.saveAll(categories);
     }
@@ -47,14 +61,56 @@ public class CategoryService implements ICategoryService {
     public Category update(Long catId, Category category) {
         Category updatedCategory = categoryRepository.findById(catId).orElseThrow();
         updatedCategory.setName(category.getName());
+//        updatedCategory.setProduct(category.getProduct());
         return categoryRepository.save(updatedCategory);
     }
+
+//    @Override
+//    public void deleteById(Long id) {
+//        Category category = categoryRepository.findById(id).orElseThrow();
+//        categoryRepository.delete(category);
+//    }
+
+
 
     @Override
     public void deleteById(Long id) {
         Category category = categoryRepository.findById(id).orElseThrow();
+
+        if (category.getHasCategoryID()!= null){
+            for (Long idCate : category.getHasCategoryID()) {
+                Optional<Category> cate=getCategoryById(id);
+                cate.ifPresent(value -> value.getBelongToCategoryID().remove(category.getId()));
+
+                categoryRepository.save(cate.get());
+            }
+        }
+        if (category.getBelongToCategoryID()!= null){
+            for (Long idCate : category.getBelongToCategoryID()) {
+                Optional<Category> cate=getCategoryById(id);
+                cate.ifPresent(value -> value.deleteHasCategoryID(category));
+                categoryRepository.save(cate.get());
+            }
+        }
+
+       /** Need improve after update Product*/
+
+//        if (category.getProducts_relationship()!= null){
+//            for (Long idCate : category.getBelongToCategoryID()) {
+//                Optional<Category> cate=getCategoryById(id);
+//                cate.ifPresent(value -> value.getHasCategoryID().remove(category.getId()));
+//                categoryRepository.save(cate.get());
+//            }
+//        }
+
+
+
+
         categoryRepository.delete(category);
     }
+
+
+
 
     @Override
     public Product addProduct(Long id, Product newProduct) {
@@ -66,4 +122,8 @@ public class CategoryService implements ICategoryService {
         }
        return newProduct;
     }
+
+
+
+
 }
