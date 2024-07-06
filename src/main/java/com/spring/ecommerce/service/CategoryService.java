@@ -61,15 +61,9 @@ public class CategoryService implements ICategoryService {
     public Category update(Long catId, Category category) {
         Category updatedCategory = categoryRepository.findById(catId).orElseThrow();
         updatedCategory.setName(category.getName());
-//        updatedCategory.setProduct(category.getProduct());
         return categoryRepository.save(updatedCategory);
     }
 
-//    @Override
-//    public void deleteById(Long id) {
-//        Category category = categoryRepository.findById(id).orElseThrow();
-//        categoryRepository.delete(category);
-//    }
 
 
 
@@ -91,17 +85,10 @@ public class CategoryService implements ICategoryService {
                 cate.ifPresent(value -> value.deleteHasCategoryID(category));
                 categoryRepository.save(cate.get());
             }
+
         }
 
-       /** Need improve after update Product*/
-
-//        if (category.getProducts_relationship()!= null){
-//            for (Long idCate : category.getBelongToCategoryID()) {
-//                Optional<Category> cate=getCategoryById(id);
-//                cate.ifPresent(value -> value.getHasCategoryID().remove(category.getId()));
-//                categoryRepository.save(cate.get());
-//            }
-//        }
+        /** Need improve after update Product*/
 
 
 

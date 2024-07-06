@@ -22,6 +22,7 @@ import java.util.*;
 @Builder
 public class Category {
 
+
     @Id
     @GeneratedValue(generatorClass = LongIDGenerator.class)
     private Long id;
@@ -31,9 +32,6 @@ public class Category {
     Set<Product> products_relationship = new HashSet<Product>();
 
 
-    public Long getId() {
-        return id;
-    }
 
     /** Improve*/
 
@@ -104,52 +102,6 @@ public class Category {
 
         products_relationship.add(product);
     }
-
-
-
-/**
- * Test ok
- */
-
-//    @Relationship(type = "HAS_CATEGORY", direction = Relationship.Direction.INCOMING)
-//    Set<Category> hasCategory = new HashSet<Category>();
-//
-//    public void addHasCategory(Category category) {
-//        if (hasCategory == null) {
-//            hasCategory = new HashSet<>();
-//        }
-//
-//        hasCategory.add(category);
-//
-//    }
-//
-//
-//    @Relationship(type = "BELONG_TO", direction = Relationship.Direction.INCOMING)
-//    Set<Category> belongToCategory = new HashSet<Category>();
-//
-//    public void addBelongCategory(Category category) {
-//        if (belongToCategory == null) {
-//            belongToCategory = new HashSet<>();
-//        }
-//
-//        belongToCategory.add(category);
-//
-//    }
-//
-//
-//
-//
-//
-//
-//
-//
-//    public void addProduct(Product product) {
-//        if (products_relationship == null) {
-//            products_relationship = new HashSet<>();
-//        }
-//
-//        products_relationship.add(product);
-//    }
 
 
 
