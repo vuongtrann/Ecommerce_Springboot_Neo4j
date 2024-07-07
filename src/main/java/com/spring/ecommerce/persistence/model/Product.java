@@ -28,8 +28,8 @@ public class Product {
     private Double ratting;
     private String evaluatting;
 
-    @Relationship(type = "BELONGS_TO", direction = Relationship.Direction.OUTGOING)
     private Category category;
+
 
     @Relationship(type = "BELONGS_TO", direction = Relationship.Direction.OUTGOING)
     private Set <Category> CategoriesRelationship;
@@ -41,6 +41,17 @@ public class Product {
 
         CategoriesRelationship.add(category);
     }
+
+    @Relationship(type = "HAS_PRODUCT", direction = Relationship.Direction.OUTGOING)
+    private Set <Category> hasProductCategory;
+
+    public void addProductCategory(Category category) {
+        if (hasProductCategory == null){
+            hasProductCategory = new HashSet<>();
+        }
+        hasProductCategory.add(category);
+    }
+
 
 
 }

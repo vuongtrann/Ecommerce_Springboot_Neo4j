@@ -43,13 +43,6 @@ public class CategoryController {
     }
 
 
-
-
-
-
-
-
-
     /** work well*/
 //    /** Add category with orther category */
 //    @PostMapping("/add/{categoryID}")
@@ -74,15 +67,6 @@ public class CategoryController {
         Category saveCategory = categoryService.saveWithOthersCate( category, categoryID);
         return RestResponse.builder(saveCategory).message("Success").build();
     }
-
-
-
-
-
-
-
-
-
 
 
 
