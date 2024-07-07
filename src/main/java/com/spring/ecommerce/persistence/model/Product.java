@@ -26,9 +26,8 @@ public class Product {
     private String description;
     private Double price;
     private Double ratting;
-    private String evaluatting;
+    private Set<Evalues> evaluatting;
 
-    private Category category;
 
 
     @Relationship(type = "BELONGS_TO", direction = Relationship.Direction.OUTGOING)

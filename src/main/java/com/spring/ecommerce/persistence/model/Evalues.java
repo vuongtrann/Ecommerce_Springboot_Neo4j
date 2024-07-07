@@ -17,7 +17,7 @@ import org.springframework.data.neo4j.core.schema.Relationship;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class Review {
+public class Evalues {
     @Id
     @GeneratedValue( generatorClass = LongIDGenerator.class)
     private Long review_id;
