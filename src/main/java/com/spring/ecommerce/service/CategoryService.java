@@ -40,14 +40,12 @@ public class CategoryService implements ICategoryService {
 
     @Override
     public Category saveWithOthersCate( Category category, Long categoryID) {
-//        Optional<Category> otherCategory = categoryRepository.findById(categoryID);
-//        if (otherCategory.isPresent()) {
-//            otherCategory.get().addBelongCategory();
-//            Category savedCategory = otherCategory.get();
-//            category.addBelongCategory(savedCategory);
-//            category= categoryRepository.save(category);
-//            categoryRepository.save(savedCategory);
-//        }
+        Optional<Category> otherCategory = categoryRepository.findById(categoryID);
+        if (otherCategory.isPresent()) {
+           category.addBelongCategory(otherCategory.get());
+            categoryRepository.save(category);
+        }
+
         return category;
     }
 
@@ -82,6 +80,7 @@ public class CategoryService implements ICategoryService {
         try {
             Optional<Category> category = categoryRepository.findById(id);
             if (category.isPresent()) {
+
                 categoryRepository.deleteById(id);
             }
             return category.get();
