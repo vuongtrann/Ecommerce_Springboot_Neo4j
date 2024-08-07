@@ -33,13 +33,15 @@ public class ProductService implements IProductService {
     }
     @Override
     public Product add(Product newProduct) {
-        Optional<Category> oCategory = categoryRepository.findById(newProduct.getCategory().getId());
-        if(oCategory.isPresent()){
-            Category category = oCategory.get();
-            newProduct.setCategory(category);
-        }
+//        Optional<Category> oCategory = categoryRepository.findById(newProduct.getCategory().getId());
+//        if(oCategory.isPresent()){
+//            Category category = oCategory.get();
+//            newProduct.setCategory(category);
+//        }
 
-        return  productRepository.save(newProduct);
+//        return  productRepository.save(newProduct);
+        return null;
+
     }
     @Override
     public Product save(Product product) {
@@ -89,7 +91,7 @@ public class ProductService implements IProductService {
             Product product = optionalProduct.get();
             Category category = optionalCategory.get();
 
-            product.setCategory(category);
+//            product.setCategory(category);
             productRepository.save(product);
         } else {
             throw new RuntimeException("Product or Category not found");

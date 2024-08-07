@@ -28,55 +28,36 @@ public class Category {
     private Long id;
     private String name;
 
-    @Relationship(type = "HAS_PRODUCT", direction = Relationship.Direction.OUTGOING)
-    Set<Product> products_relationship = new HashSet<Product>();
 
-
-    /** Improve*/
-
-    Set<Long> hasCategoryID = new HashSet<Long>();
-    Set<Long> belongToCategoryID = new HashSet<Long>();
-
-    public void addHasCategoryID(Category category) {
-        hasCategoryID.add(category.getId());
-        addHasCategory(category);
-    }
-    public void deleteHasCategoryID(Category category) {
-        hasCategoryID.remove(category.getId());
-        hasCategory.remove(category);
-    }
-    public void addBelongToCategoryID(Category savedCategory) {
-        belongToCategoryID.add(savedCategory.getId());
-        addBelongCategory(savedCategory);
-    }
-    @JsonIgnore
-    @Relationship(type = "HAS_CATEGORY", direction = Relationship.Direction.OUTGOING)
-      Set<Category> hasCategory = new HashSet<Category>();
-
-    public void addHasCategory(Category category) {
-        if (hasCategory == null) {
-            hasCategory = new HashSet<>();
-        }
-        hasCategory.add(category);
-    }
     @JsonIgnore
     @Relationship(type = "BELONG_TO", direction = Relationship.Direction.OUTGOING)
-    Set<Category> belongToCategory = new HashSet<Category>();
+    Set<Category> reCategory = new HashSet<Category>();
+
+
+
+
+//    @Relationship(type = "HAS_PRODUCT", direction = Relationship.Direction.OUTGOING)
+//    Set<Product> ReProduct = new HashSet<Product>();
+
+
+
+
 
     public void addBelongCategory(Category category) {
-        if (belongToCategory == null) {
-            belongToCategory = new HashSet<>();
+        if (reCategory == null) {
+            reCategory = new HashSet<>();
         }
-        belongToCategory.add(category);
+        reCategory.add(category);
 
     }
-    public void addProduct(Product product) {
-        if (products_relationship == null) {
-            products_relationship = new HashSet<>();
-        }
 
-        products_relationship.add(product);
-    }
+//    public void addProduct(Product product) {
+//        if (ReProduct == null) {
+//            ReProduct = new HashSet<>();
+//        }
+//
+//        ReProduct.add(product);
+//    }
 
 
 

@@ -1,7 +1,6 @@
 package com.spring.ecommerce.service;
 
 import com.spring.ecommerce.persistence.dao.CategoryRepository;
-import com.spring.ecommerce.persistence.dao.ProductRepository;
 import com.spring.ecommerce.persistence.model.Category;
 import com.spring.ecommerce.persistence.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,21 +13,23 @@ import java.util.Optional;
 public class CategoryService implements ICategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
-    @Autowired
-    private ProductRepository productRepository;
+//    @Autowired
+//    private ProductRepository productRepository;
+
+
 
     @Override
-    public List<Category> getAllCategories() {
+    public List<Category> findAll() {
         return categoryRepository.findAll();
     }
 
     @Override
-    public Optional<Category> getCategoryById(Long id) {
+    public Optional<Category> findById(Long id) {
         return categoryRepository.findById(id);
     }
 
     @Override
-    public Optional<Category> getCategoryByName(String name) {
+    public Optional<Category> findByName(String name) {
         return Optional.empty();
     }
 
@@ -39,14 +40,14 @@ public class CategoryService implements ICategoryService {
 
     @Override
     public Category saveWithOthersCate( Category category, Long categoryID) {
-        Optional<Category> otherCategory = categoryRepository.findById(categoryID);
-        if (otherCategory.isPresent()) {
-            Category savedCategory = otherCategory.get();
-            category.addBelongToCategoryID(savedCategory);
-            category= categoryRepository.save(category);
-            savedCategory.addHasCategoryID(category);
-            categoryRepository.save(savedCategory);
-        }
+//        Optional<Category> otherCategory = categoryRepository.findById(categoryID);
+//        if (otherCategory.isPresent()) {
+//            otherCategory.get().addBelongCategory();
+//            Category savedCategory = otherCategory.get();
+//            category.addBelongCategory(savedCategory);
+//            category= categoryRepository.save(category);
+//            categoryRepository.save(savedCategory);
+//        }
         return category;
     }
 
@@ -58,42 +59,38 @@ public class CategoryService implements ICategoryService {
 
 
     @Override
-    public Category update(Long catId, Category category) {
-        Category updatedCategory = categoryRepository.findById(catId).orElseThrow();
-        updatedCategory.setName(category.getName());
-        return categoryRepository.save(updatedCategory);
+    public Category update(Long categoryID, Category category) {
+
+            Optional<Category> updatedCategory = categoryRepository.findById(categoryID);
+            if (updatedCategory.isPresent()) {
+                updatedCategory.get().setName(category.getName());
+                return categoryRepository.save(updatedCategory.get());
+            }
+            else {
+
+                return null;
+            }
+
+
+
     }
 
 
 
-
     @Override
-    public void deleteById(Long id) {
-        Category category = categoryRepository.findById(id).orElseThrow();
-
-        if (category.getHasCategoryID()!= null){
-            for (Long idCate : category.getHasCategoryID()) {
-                Optional<Category> cate=getCategoryById(id);
-                cate.ifPresent(value -> value.getBelongToCategoryID().remove(category.getId()));
-
-                categoryRepository.save(cate.get());
+    public Category deleteById(Long id) {
+        try {
+            Optional<Category> category = categoryRepository.findById(id);
+            if (category.isPresent()) {
+                categoryRepository.deleteById(id);
             }
+            return category.get();
         }
-        if (category.getBelongToCategoryID()!= null){
-            for (Long idCate : category.getBelongToCategoryID()) {
-                Optional<Category> cate=getCategoryById(id);
-                cate.ifPresent(value -> value.deleteHasCategoryID(category));
-                categoryRepository.save(cate.get());
-            }
-
+        catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
 
-        /** Need improve after update Product*/
-
-
-
-
-        categoryRepository.delete(category);
     }
 
 
@@ -101,12 +98,12 @@ public class CategoryService implements ICategoryService {
 
     @Override
     public Product addProduct(Long id, Product newProduct) {
-        Optional<Category> category = categoryRepository.findById(id);
-        if (category.isPresent()) {
-            Category category1 = category.get();
-            newProduct.setCategory(category1);
-            productRepository.save(newProduct);
-        }
+//        Optional<Category> category = categoryRepository.findById(id);
+//        if (category.isPresent()) {
+//            Category category1 = category.get();
+//            newProduct.setCategory(category1);
+//            productRepository.save(newProduct);
+//        }
        return newProduct;
     }
 

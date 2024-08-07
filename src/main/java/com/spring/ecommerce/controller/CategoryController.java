@@ -23,14 +23,14 @@ public class CategoryController {
     /**Get all category*/
     @GetMapping("")
     public RestResponse getAllCategorys() {
-        List<Category> categoryList = categoryService.getAllCategories();
+        List<Category> categoryList = categoryService.findAll();
         return RestResponse.builder(categoryList).message("Success").build();
     }
 
     /** Get category by ID*/
     @GetMapping("/{categoryID}")
     public RestResponse getCategoryByID(@PathVariable("categoryID") Long categoryID) {
-        Optional<Category> category= categoryService.getCategoryById( categoryID);
+        Optional<Category> category= categoryService.findById( categoryID);
         return RestResponse.builder(category.get()).message("Success").build();
     }
 
@@ -40,6 +40,31 @@ public class CategoryController {
     public RestResponse addCategory( @RequestBody Category category) {
         Category saveCategory = categoryService.save(category);
         return RestResponse.builder(saveCategory).message("Success").build();
+    }
+
+
+    /** Add list category */
+    @PostMapping("/addList")
+    public RestResponse addAllCategory(@RequestBody List<Category> category) {
+        List<Category> saveCategory = categoryService.saveAll(category);
+        return RestResponse.builder(saveCategory).message("Success").build();
+    }
+
+
+    /** Update category*/
+    @PutMapping ("/{categoryID}/update")
+    public RestResponse updateCategory(@PathVariable("categoryID") Long categoryID, @RequestBody Category category) {
+        Category saveCategory= categoryService.update(categoryID, category);
+        return RestResponse.builder(saveCategory).message("Success").build();
+    }
+
+
+
+    /**Delete category*/
+    @DeleteMapping("/{categoryID}/delete")
+    public RestResponse deleteCategory(@PathVariable("categoryID") Long categoryID) {
+        categoryService.deleteById(categoryID);
+        return RestResponse.builder(categoryID).message("Success").build();
     }
 
 
@@ -71,26 +96,7 @@ public class CategoryController {
 
 
 
-    /** Add list category */
-    @PostMapping("/addList")
-    public RestResponse addAllCategory(@RequestBody List<Category> category) {
-        List<Category> saveCategory = categoryService.saveAll(category);
-        return RestResponse.builder(saveCategory).message("Success").build();
-    }
 
-    /** Update category*/
-    @PutMapping ("/{categoryId}/update")
-    public RestResponse updateCategory(@PathVariable("categoryID") Long categoryID, @RequestBody Category category) {
-        Category saveCategory= categoryService.update(categoryID, category);
-        return RestResponse.builder(saveCategory).message("Success").build();
-    }
-
-    /**Delete category*/
-    @DeleteMapping("/{categoryID}/delete")
-    public RestResponse deleteCategory(@PathVariable("categoryID") Long categoryID) {
-        categoryService.deleteById(categoryID);
-        return RestResponse.builder(categoryID).message("Success").build();
-    }
 
 
 
@@ -102,11 +108,6 @@ public class CategoryController {
     }
 
 
-//    @PostMapping("/{categoryId}/product")
-//    public RestResponse cateAddProduct(@PathVariable("categoryId") Long categoryID, @RequestBody Product product) {
-//        categoryService.addProduct(categoryID,product);
-//        return RestResponse.builder(categoryID).message("Success").build();
-//    }
 
 
 
