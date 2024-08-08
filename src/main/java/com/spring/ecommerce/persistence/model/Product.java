@@ -1,5 +1,6 @@
 package com.spring.ecommerce.persistence.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spring.ecommerce.persistence.model.config.LongIDGenerator;
 import lombok.*;
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
@@ -26,29 +27,29 @@ public class Product {
     private String description;
     private Double price;
     private Double ratting;
-    private Set<Evalues> evaluatting;
 
-
-
+    @JsonIgnore
     @Relationship(type = "BELONGS_TO", direction = Relationship.Direction.OUTGOING)
-    private Set <Category> CategoriesRelationship;
+    private Set <Category> reCategory;
+
+
+
+
 
     public void addCategory(Category category) {
-        if (CategoriesRelationship == null){
-            CategoriesRelationship = new HashSet<>();
+        if (reCategory == null){
+            reCategory = new HashSet<>();
         }
-
-        CategoriesRelationship.add(category);
+        reCategory.add(category);
     }
 
-    @Relationship(type = "HAS_PRODUCT", direction = Relationship.Direction.OUTGOING)
-    private Set <Category> hasProductCategory;
+    public void update ( Product product){
+        this.setName(product.getName());
+        this.setImageURL(product.getImageURL());
+        this.setDescription(product.getDescription());
+        this.setPrice(product.getPrice());
+        this.setRatting(product.getRatting());
 
-    public void addProductCategory(Category category) {
-        if (hasProductCategory == null){
-            hasProductCategory = new HashSet<>();
-        }
-        hasProductCategory.add(category);
     }
 
 

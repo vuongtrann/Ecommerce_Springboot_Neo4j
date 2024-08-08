@@ -18,8 +18,6 @@ public interface ICategoryService {
     public List<Category> saveAll(List<Category> categories);
     public Category update(Long categoryID, Category category);
     public Category deleteById(Long id);
-    public Product addProduct(Long categoryId, Product newProduct);
-
 
 
 }

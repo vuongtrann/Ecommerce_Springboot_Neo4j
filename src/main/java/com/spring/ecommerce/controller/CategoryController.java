@@ -81,29 +81,4 @@ public class CategoryController {
 
 
 
-
-
-
-
-
-    /** Add product by category ID*/
-    @PostMapping("/{categoryId}/product")
-    public RestResponse categoryAddProduct(@PathVariable("categoryId") Long categoryID, @RequestBody Product product) {
-        categoryService.addProduct(categoryID,product);
-        return RestResponse.builder(categoryID).message("Success").build();
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

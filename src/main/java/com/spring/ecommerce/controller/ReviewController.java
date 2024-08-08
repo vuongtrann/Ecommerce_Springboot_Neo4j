@@ -26,7 +26,7 @@ public class ReviewController {
 
     @PostMapping("/add/{idProduct}")
     public Evalues addReview(@RequestBody Evalues evalues, @PathVariable Long idProduct) {
-        Optional<Product> product = productService.getProductById(idProduct);
+        Optional<Product> product = productService.findById(idProduct);
         if (product.isPresent()) {
 
         }

@@ -13,8 +13,6 @@ import java.util.Optional;
 public class CategoryService implements ICategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
-//    @Autowired
-//    private ProductRepository productRepository;
 
 
 
@@ -95,16 +93,6 @@ public class CategoryService implements ICategoryService {
 
 
 
-    @Override
-    public Product addProduct(Long id, Product newProduct) {
-//        Optional<Category> category = categoryRepository.findById(id);
-//        if (category.isPresent()) {
-//            Category category1 = category.get();
-//            newProduct.setCategory(category1);
-//            productRepository.save(newProduct);
-//        }
-       return newProduct;
-    }
 
 
 

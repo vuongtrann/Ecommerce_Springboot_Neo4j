@@ -22,28 +22,34 @@ public class ProductController {
     /** Get all product*/
     @GetMapping("")
     public RestResponse getAllProduct() {
-        List<Product> products = productService.getAllProducts();
+        List<Product> products = productService.findAll();
         return RestResponse.builder(products).message("Success").build();
     }
     /** Get product by ID*/
     @GetMapping("/{productID}")
-    public RestResponse getProductByID(@PathVariable("productID") long proID) {
-        Optional<Product> product = productService.getProductById(proID);
+    public RestResponse getProductByID(@PathVariable("productID") Long proID) {
+        Optional<Product> product = productService.findById(proID);
         return RestResponse.builder(product).message("Success").build();
     }
 
     /**Add product*/
     @PostMapping("/add")
-    public RestResponse addProduct(@RequestBody Product product) {
-        productService.save(product);
+    public RestResponse add(
+            @RequestBody Product product,
+            @RequestParam(value = "categoryId" , required = false) Long categoryId
+           ) {
+        productService.save(product, categoryId);
         return RestResponse.builder(product).message("Success").build();
     }
+
+
     
     /** Add list product*/
     @PostMapping("/addList")
-    public RestResponse addAllProduct(@RequestBody List<Product> products) {
-        List<Product> productList = productService.saveAll(products);
-         return RestResponse.builder(productList).message("Success").build();
+    public RestResponse addAll(@RequestBody List<Product> products) {
+//        List<Product> productList = productService.saveAll(products);
+//         return RestResponse.builder(productList).message("Success").build();
+        return null;
     }
 
     /**Update product by ID*/
@@ -60,18 +66,12 @@ public class ProductController {
         return RestResponse.builder(HttpStatus.OK).message("Success").build();
     }
 
-    /** Add category by product ID*/
-    @PostMapping("{productId}/category")
-    public ResponseEntity<Category> addCategory(@PathVariable("productId") long proID, @RequestBody Category category) {
-        productService.addCategory(proID, category);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-    
+
     /** Update category by product ID*/
     @PutMapping("{productId}/category/{categoryId}")
     public RestResponse updateCategoryOfProduct(@PathVariable("productId") long proID, @PathVariable Long categoryId) {
         productService.updateCategoryOfProduct(proID, categoryId);
-        Optional<Product> result = productService.getProductById(proID);
+        Optional<Product> result = productService.findById(proID);
         return RestResponse.builder(result).message("Success").build();
     }
 }
